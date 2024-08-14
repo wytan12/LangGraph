@@ -23,16 +23,16 @@ The chatbot workflow is structured as follows:
 ## Key Components
 
 ### 1. Query Grader
-The Query Grader is responsible for evaluating the quality and relevance of retrieved documents. It assigns a grade to each document, ensuring that only the most relevant information is used in generating a response.
+The Query Grader is responsible for evaluating the relevance of the user’s query to the chatbot system. It assigns a grade of "yes" if the query is relevant and "no" if it is not, ensuring that only appropriate queries proceed through the workflow.
 
-### 2. Sentiment Analyzer
-The Sentiment Analyzer assesses the emotional tone of the user’s query. It categorizes the sentiment as positive, negative, or neutral, which helps in tailoring the chatbot’s response to be more aligned with the user’s tone.
+### 2. Sentiment and Emotion Analyzer
+The Sentiment and Emotion Analyzer assesses both the emotional tone and specific emotions of the user’s query. It categorizes the sentiment as positive, negative, or neutral, and identifies specific emotions like happiness, anger, or sadness. This helps in tailoring the chatbot’s response to be more aligned with the user's emotional state.
 
 ### 3. Intent Classifier
 The Intent Classifier determines the user's intent based on their query. It categorizes the query into predefined intents, which directs the chatbot's subsequent actions and retrieval process.
 
 ### 4. Retrieval Grader
-The Retrieval Grader is used after the retrieval process to ensure that the most relevant documents are chosen for response generation. It further filters and prioritizes the retrieved content.
+The Retrieval Grader evaluates the relevance of retrieved documents in relation to the query. It assigns a grade of "yes" if the document is relevant and "no" if it is not. This ensures that only the most relevant documents are used in generating the final response.
 
 ## Flow Diagram
 
