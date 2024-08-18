@@ -1,12 +1,12 @@
 from typing import List
 from typing_extensions import TypedDict
 
-from LangGraph.generate import generate
+from LangGraph.generate import generate_answer
 from LangGraph.intentClassifier import classify_intent
 from LangGraph.queryGrader import grade_query
 from LangGraph.retrievalGrader import retrieval_grader
-from LangGraph.retriever import retriever
-from LangGraph.sentimentAnalysis import emotion_classifier, sentiment_pipeline
+from LangGraph.retriever import get_retriever
+from LangGraph.sentimentAnalysis import SentimentAnalysisPipeline
 
 
 class GraphState(TypedDict):
@@ -31,26 +31,26 @@ def check_intents(state):
     print("---CHECK INTENTS START---")
     question = state["question"]
     print("Classify intents")
-    intent = classify_intent(question)
-    print(intent)
-    return {**state, "intent": intent}
+    label = classify_intent(question)
+    print(label)
+    return {**state, "intent": label}
 
 def sentiment_analysis(state):
     print("---SENTIMENT ANALYSIS START---")
     question = state["question"]
-    emo_result = emotion_classifier(question)
-    emotion = emo_result[0]['label']
-    sen_result = sentiment_pipeline(question)
-    sentiment = sen_result[0]['label']
-    print(emotion)
-    print(sentiment)
-    return {**state, "emotion": emotion, "sentiment": sentiment}
+    analyzer = SentimentAnalysisPipeline()
+    result = analyzer.analyze(question)
+
+    print(result.emotion)
+    print(result.sentiment)
+    return {**state, "emotion": result.emotion, "sentiment": result.sentiment}
 
 def retrieve(state):
     print("---RETRIEVE---")
     question = state["question"]
 
     # Retrieval
+    retriever = get_retriever("docs")
     documents = retriever.get_relevant_documents(question)
     print(documents)
     return {**state, "documents": documents}
@@ -63,7 +63,7 @@ def grade_documents(state):
     # Score each doc
     filtered_docs = []
     for d in documents:
-        score = retrieval_grader.invoke({"question": question, "document": d.page_content})
+        score = retrieval_grader(question, d.page_content)
         grade = score.binary_score
         if grade == "yes":
             print("---GRADE: DOCUMENT RELEVANT---")
@@ -82,7 +82,8 @@ def generate(state):
     sentiment = state["sentiment"]
     intent = state["intent"]
 
-    generation = generate(documents, question, emotion, sentiment, intent) 
+    generation = generate_answer(documents, question, emotion, sentiment, intent)
+    print('question:', documents, emotion, sentiment, intent, generation)
     return {**state, "generation": generation}
 
 

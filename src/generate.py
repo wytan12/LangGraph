@@ -3,11 +3,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from datetime import datetime
 
 from LangGraph.config import azure_model
-from LangGraph.intentClassifier import intent
-from LangGraph.retrievalGrader import docs, question
-from LangGraph.sentimentAnalysis import emotion, sentiment
 
-def generate(docs, question, emotion, sentiment, intent):
+
+def generate_answer(docs, question, emotion, sentiment, intent):
 
     llm = azure_model
 

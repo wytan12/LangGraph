@@ -21,18 +21,17 @@ def process_document(file_path, file_type):
     docs = text_splitter.split_documents(documents)
     return docs
 
+def get_retriever(docs_folder: str):
+    all_docs = []
 
-docs_folder = "docs"
+    for filename in os.listdir(docs_folder):
+        file_path = os.path.join(docs_folder, filename)
+        file_type = filename.split('.')[-1]
 
-all_docs = []
+        chunks = process_document(file_path, file_type)
+        all_docs.extend(chunks)
 
-for filename in os.listdir(docs_folder):
-    file_path = os.path.join(docs_folder, filename)
-    file_type = filename.split('.')[-1]
+    db = FAISS.from_documents(all_docs, azure_embeddings)
 
-    chunks = process_document(file_path, file_type)
-    all_docs.extend(chunks)
+    return db.as_retriever()
 
-db = FAISS.from_documents(all_docs, azure_embeddings)
-
-retriever = db.as_retriever()

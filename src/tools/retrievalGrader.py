@@ -3,7 +3,7 @@ from datetime import datetime
 from langchain_core.pydantic_v1 import BaseModel, Field
 
 from LangGraph.config import azure_model
-from LangGraph.retriever import retriever
+# from LangGraph.retriever import retriever
 
 
 class GradeDocuments(BaseModel):
@@ -33,12 +33,3 @@ def retrieval_grader(question, doc_txt):
     score = retrieval_grader.invoke({"question": question, "document": doc_txt})
     
     return score
-
-
-# retrieval_grader = grade_prompt | structured_llm_grader
-# question = "Tell me more about data science"
-# docs = retriever.get_relevant_documents(question)
-# print(docs)
-# doc_txt = docs[1].page_content
-# print(doc_txt)
-# print(retrieval_grader.invoke({"question": question, "document": doc_txt}))

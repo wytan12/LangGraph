@@ -1,6 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate
-from datetime import datetime
 from langchain_core.pydantic_v1 import BaseModel, Field
+from datetime import datetime
 
 from LangGraph.config import azure_model
 
@@ -51,8 +51,3 @@ def classify_intent(query: str) -> str:
 
     intent_label = response.content.strip()
     return intent_label
-
-
-# query = "What is the detail of data science?"
-# intent = classify_intent(query)
-# print(f'Classified Intent: {intent}')
