@@ -2,8 +2,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from datetime import datetime
 from langchain_core.pydantic_v1 import BaseModel, Field
 
-from LangGraph.config import azure_model
-
+from src.config import azure_model
 
 class GradeQuery(BaseModel):
     """Binary score for relevance check on user query."""

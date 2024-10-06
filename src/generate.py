@@ -2,7 +2,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from datetime import datetime
 
-from LangGraph.config import azure_model
+from src.config import azure_model
 
 
 def generate_answer(docs, question, emotion, sentiment, intent):

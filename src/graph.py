@@ -1,12 +1,12 @@
 from typing import List
 from typing_extensions import TypedDict
 
-from LangGraph.generate import generate_answer
-from LangGraph.intentClassifier import classify_intent
-from LangGraph.queryGrader import grade_query
-from LangGraph.retrievalGrader import retrieval_grader
-from LangGraph.retriever import get_retriever
-from LangGraph.sentimentAnalysis import SentimentAnalysisPipeline
+from src.generate import generate_answer
+from src.retriever import get_retriever
+from src.tools.intentClassifier import classify_intent
+from src.tools.queryGrader import grade_query
+from src.tools.retrievalGrader import retrieval_grader
+from src.tools.sentimentAnalysis import SentimentAnalysisPipeline
 
 
 class GraphState(TypedDict):

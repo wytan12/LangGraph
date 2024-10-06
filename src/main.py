@@ -1,7 +1,7 @@
 from langgraph.graph import END, StateGraph, START
 import pandas as pd
 
-from LangGraph.graph import check_relevance, GraphState, grade_documents, check_intents, sentiment_analysis, retrieve, \
+from src.graph import check_relevance, GraphState, grade_documents, check_intents, sentiment_analysis, retrieve, \
     generate, decide_to_proceed, decide_to_generate
 
 workflow = StateGraph(GraphState)

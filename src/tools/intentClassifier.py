@@ -2,7 +2,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from datetime import datetime
 
-from LangGraph.config import azure_model
+from src.config import azure_model
 
 
 class IntentClassifier(BaseModel):
